@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://ckdka6rxhhxxx"]
+
+[ext_resource type="Script" path="res://scene/ball.gd" id="1_58pr2"]
+[ext_resource type="Texture2D" uid="uid://3r8dekfswi5o" path="res://ball.png" id="1_w6spa"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2vkx1"]
+friction = 1.1
+bounce = 10.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tte08"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_68bne"]
+radius = 5.0
+
+[node name="ball" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 0
+mass = 0.25
+physics_material_override = SubResource("PhysicsMaterial_2vkx1")
+gravity_scale = 0.0
+script = ExtResource("1_58pr2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.01, 0.01)
+texture = ExtResource("1_w6spa")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 31
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_tte08")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_68bne")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

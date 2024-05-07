@@ -1,0 +1,67 @@
+[gd_scene load_steps=9 format=3 uid="uid://dhrijconqleet"]
+
+[ext_resource type="PackedScene" uid="uid://ckdka6rxhhxxx" path="res://scene/ball.tscn" id="1_cy0wv"]
+[ext_resource type="PackedScene" uid="uid://ygy14foknsds" path="res://scene/tennis.tscn" id="2_fij8r"]
+[ext_resource type="PackedScene" uid="uid://chf47ubahiqr2" path="res://scene/brick.tscn" id="3_ppc76"]
+[ext_resource type="Script" path="res://scene/Divar.gd" id="4_2gx1l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ppotf"]
+size = Vector2(23, 660)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yfgf8"]
+size = Vector2(1152, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ond2"]
+size = Vector2(1162, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x041h"]
+size = Vector2(25, 701)
+
+[node name="World" type="Node2D"]
+
+[node name="ball" parent="." instance=ExtResource("1_cy0wv")]
+position = Vector2(528, 278)
+
+[node name="tennis" parent="." instance=ExtResource("2_fij8r")]
+position = Vector2(530, 613)
+
+[node name="Brick" parent="." instance=ExtResource("3_ppc76")]
+position = Vector2(530, 116)
+
+[node name="Divar" type="Node2D" parent="."]
+script = ExtResource("4_2gx1l")
+
+[node name="Arealeft" type="Area2D" parent="Divar"]
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Divar/Arealeft"]
+position = Vector2(-12.5, 325)
+shape = SubResource("RectangleShape2D_ppotf")
+
+[node name="Areaup" type="Area2D" parent="Divar"]
+position = Vector2(0, -26)
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Divar/Areaup"]
+position = Vector2(575, 13)
+shape = SubResource("RectangleShape2D_yfgf8")
+
+[node name="Areadown" type="Area2D" parent="Divar"]
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Divar/Areadown"]
+position = Vector2(574, 663.5)
+shape = SubResource("RectangleShape2D_7ond2")
+
+[node name="Arearight" type="Area2D" parent="Divar"]
+position = Vector2(1172, 661)
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Divar/Arearight"]
+position = Vector2(-6.5, -334.5)
+shape = SubResource("RectangleShape2D_x041h")
+
+[connection signal="area_entered" from="Divar/Arealeft" to="Divar" method="_on_arealeft_area_entered"]
+[connection signal="area_entered" from="Divar/Areaup" to="Divar" method="_on_areaup_area_entered"]
+[connection signal="area_entered" from="Divar/Areadown" to="Divar" method="_on_areadown_area_entered"]
+[connection signal="area_entered" from="Divar/Arearight" to="Divar" method="_on_arearight_area_entered"]
